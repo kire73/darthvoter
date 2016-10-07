@@ -10,7 +10,7 @@
     <body>
       <ul class="login">
         <form name="signin" class="topsign">
-          <li><div id="loginMess">User Login:</div></li>
+          <li><div id="loginMess">User Login: <span id="userVal"><%=userVal%></span></div></li>
           <li><input class="loginField form-control" id="usr" type="text"></input></li>
           <li><input class="loginField form-control" id="pass" type="text"></input></li>
           <li><button class="loginField btn" id="signin-btn" type="submit">login</input></li>
@@ -28,8 +28,14 @@
         </div>
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="/ejs.min.js"></script>
         <script src="/javascripts/signin.js"></script>
         <script src="/javascripts/signup.js"></script>
         <script src="/javascripts/userClient.js"></script>
+        <script>
+          var html = ejs.render('<%= userVal %>');
+          $("#userval").html(html);
+          document.getElementById('userVal').innerHTML = html;
+        </script>
     </body>
 </html>

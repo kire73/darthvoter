@@ -11,15 +11,33 @@ body {
 }
 
 .login {
-    border: 1px solid black;
-    max-width: 30%;
-    max-height: 30%;
-    content: justify;
+    width: 100%;
+    display: inline-block;
+    top: 0;
+    padding: 0px;
+    position: fixed;
     overflow: visible;
+    background-color: khaki;
+}
+
+li {
+    padding: 0px;
+    margin: 0px;
+    display: inline-block;
+    line-height: 14px;
+}
+
+.topsign {
+    float: right;
+}
+
+.viewer {
+    margin-top: 10%;
 }
 
 .loginField {
-    display: block;
+    display: inline-block;
+    margin: 2%;
 }
 /*
 .usr {

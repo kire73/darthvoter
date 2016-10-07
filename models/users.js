@@ -11,14 +11,20 @@ var CounterSchema = Schema({
 
 var counter = mongoose.model('counter', CounterSchema);
 
-   var voterSchema = mongoose.Schema({
-       userName: String,
-       userPass: String,
-       userSince: Date
-   });
-   var voter = mongoose.model('voter', voterSchema);
-  voterSchema.pre('save', function(next){
-  var doc = this;
+var voterSchema = mongoose.Schema({
+    userName: String,
+    userPass: String,
+    userSince: Date
+});
+
+voterSchema.methods.addPoll = function(pollFormData){
+    var poll = pollFormData;
+    console.log(poll);
+};
+
+var voter = mongoose.model('voter', voterSchema);
+voterSchema.pre('save', function(next){
+    var doc = this;
   
 
     counter.findByIdAndUpdate({_id: 'voter_count'}, {$inc: {seq: 1} }, function(error, counter) {
