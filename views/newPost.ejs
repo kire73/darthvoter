@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+<html>
+    <body>
+      <div align="center">
+      <ul class="pollMaker">
+        <form name="pollForm" id="pollForm" class="newPoll">
+          <li><div id="loginMess"><span id="userVal"><%=userVal%></span></div></li>
+          <label for="title">Title</label>
+          <li><input class="postField form-control" id="title" type="text" autofocus></input></li>
+          <input class="postField form-control numSelect" type="number" required min='2' max='5' id="choiceNum"></input></li>
+          <button class="loginField btn" type="submit" id="updateChoices">Recalculate</button>
+          <label for="choices">Options</label>
+          <li><div id="choices"><span id="moreBars"><%=moreBars%></span></div></li>
+          <li><button class="loginField btn" id="createPoll" type="submit">Submit</input></li>
+        </form>
+      </ul>
+      </div>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="/ejs.min.js"></script>
+        <script src="/javascripts/signin.js"></script>
+        <script src="/javascripts/signup.js"></script>
+        <script src="/javascripts/userClient.js"></script>
+        <script>
+          var html = ejs.render('<%= userVal %>');
+          $("#userval").html(html);
+          document.getElementById('userVal').innerHTML = html;
+          
+          
+          var howMany = function(){
+            event.preventDefault();
+            return document.getElementById('choiceNum').value;
+          }
+          var allBars = function(){
+            console.log('taking input:\nhowMany: ' + howMany());
+            var bars = '';
+            for (var i = 0; i < howMany(); i++){
+              bars += '<li><input class="postField form-control" id="choice[' + i +']" type="text"></input></li>';
+            }
+            console.log(bars);
+            $('#moreBars').html(bars);
+            return bars;
+          }
+          var moreBars = ejs.render('<%= moreBars %>');
+          $('#updateChoices').on('click', function(){
+            console.log("num: " + howMany());
+            event.preventDefault();
+            $('#choices').html(allBars(howMany()));
+          });
+            document.getElementById('moreBars').innerHTML = moreBars;
+        </script>
+    </body>
+</html>

@@ -9,7 +9,9 @@ body {
     margin-bottom: 10%;
     padding-bottom: 10%;
 }
-
+ul {
+    list-style-type: none;
+}
 .login {
     width: 100%;
     display: inline-block;
@@ -20,7 +22,7 @@ body {
     background-color: khaki;
 }
 
-li {
+.login li {
     padding: 0px;
     margin: 0px;
     display: inline-block;
@@ -34,10 +36,26 @@ li {
 .viewer {
     margin-top: 10%;
 }
-
+.pollMaker {
+    display: table;
+}
 .loginField {
     display: inline-block;
     margin: 2%;
+}
+.postField {
+    display: block;
+    margin: 2%;
+    float: left;
+    clear: left;
+}
+.numSelect {
+    /*max-width: 20%;*/
+    display: block;
+}
+#pollForm {
+    display: block;
+    margin-top: 20%;
 }
 /*
 .usr {

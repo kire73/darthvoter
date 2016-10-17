@@ -1,19 +1,23 @@
-// signup.js
+// pollViewer
 /* global $ */
-
-$('#signup-btn').on('click', function(){
+$('#toMaker').on('click', function(){
+    console.log('from the viewer');
+});
+$('#createPoll').on('click', function(){
   // AJAX call to /api/signup
   $.ajax({
-    url: '/api/signup',
+    url: '/api/newPost',
     type: 'POST',
     dataType: 'JSON',
     data: {
-      password: $('#pass').val(),
-      user: $('#usr').val(),
+      title: $('#title').val(),
+      author: $('#userVal').val(),
+      choices: $('#choice').forEach().val(),
+      pollSince: $(new Date)
     },
     err: function (err) {
-      if (err.responseText == "showAlert"){
-        alert("Incorrect login Information");
+      if (err){
+        alert(err);
       }
     }
   });

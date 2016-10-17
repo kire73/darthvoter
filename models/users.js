@@ -11,16 +11,39 @@ var CounterSchema = Schema({
 
 var counter = mongoose.model('counter', CounterSchema);
 
+var ObjectId = mongoose.Schema.Types.ObjectId;
+
+/*
+voterSchema.methods.addPoll = function(err, pollFormData){
+    var poll = pollFormData;
+    if (err){ console.log(err)} else console.log(poll);
+};
+*/
+var choices = mongoose.Schema({
+    choice: String,
+    votesCast: Number
+    });
+    
+var ballot = mongoose.Schema({
+    voter: String,
+    vote: String
+});
+
+var pollSchema = mongoose.Schema({
+    title: String,
+    author: String,
+    pollSince: Date,
+    choices: [choices],
+    voters: [ballot]
+});
+
 var voterSchema = mongoose.Schema({
     userName: String,
     userPass: String,
-    userSince: Date
+    userSince: Date,
+    authorOf: [pollSchema],
+    ballots: [ballot]
 });
-
-voterSchema.methods.addPoll = function(pollFormData){
-    var poll = pollFormData;
-    console.log(poll);
-};
 
 var voter = mongoose.model('voter', voterSchema);
 voterSchema.pre('save', function(next){
@@ -38,4 +61,23 @@ voterSchema.pre('save', function(next){
   });
 });
 
-module.exports = voter;
+var poll = mongoose.model('poll', pollSchema);
+pollSchema.pre('save', function(next){
+    
+    var doc = this;
+    counter.findByIdAndUpdate({_id: 'poll_count'}, {$inc: {seq: 1} }, function(error, counter) {
+      if (error) {
+          return next(error);
+      }
+      
+      doc._id = counter.seq;
+      doc.created_at = new Date();
+      next();
+  });
+  
+});
+
+module.exports = {
+    voter: voter,
+    poll: poll
+};

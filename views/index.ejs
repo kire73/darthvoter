@@ -11,7 +11,7 @@
       <ul class="login">
         <form name="signin" class="topsign">
           <li><div id="loginMess">User Login: <span id="userVal"><%=userVal%></span></div></li>
-          <li><input class="loginField form-control" id="usr" type="text"></input></li>
+          <li><input class="loginField form-control" id="usr" type="text" autofocus></input></li>
           <li><input class="loginField form-control" id="pass" type="text"></input></li>
           <li><button class="loginField btn" id="signin-btn" type="submit">login</input></li>
           <li><button class="loginField btn" id="signup-btn" type="submit">register</input></li>
@@ -20,6 +20,7 @@
     <div align="center" class="viewer">
           <h1>Darth Voter</h1>
           <div class="mtable"><p>This will be the main table</p>
+          <a href="/newPost.ejs"><button id="toMaker" type="submit">New Poll</button></a>
             <div>
               <p id="loginMess">Voting Data</p>
             </div>
