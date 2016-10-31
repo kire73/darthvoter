@@ -10,11 +10,11 @@
     <body>
       <div align="center">
       <ul class="pollMaker">
-        <form name="pollForm" id="pollForm" class="newPoll">
+        <form method="post" name="pollForm" id="pollForm" action="newPost" class="newPoll">
           <li><div id="loginMess"><span id="userVal"><%=userVal%></span></div></li>
           <label for="title">Title</label>
-          <li><input class="postField form-control" id="title" type="text" autofocus></input></li>
-          <input class="postField form-control numSelect" type="number" required min='2' max='5' id="choiceNum"></input></li>
+          <li><input class="postField form-control" name="title" id="title" required type="text" autofocus></input></li>
+          <input class="postField form-control numSelect" type="number" required min='2' max='5' name="choiceNum" id="choiceNum"></input></li>
           <button class="loginField btn" type="submit" id="updateChoices">Recalculate</button>
           <label for="choices">Options</label>
           <li><div id="choices"><span id="moreBars"><%=moreBars%></span></div></li>
@@ -27,7 +27,6 @@
         <script src="/ejs.min.js"></script>
         <script src="/javascripts/signin.js"></script>
         <script src="/javascripts/signup.js"></script>
-        <script src="/javascripts/userClient.js"></script>
         <script>
           var html = ejs.render('<%= userVal %>');
           $("#userval").html(html);
@@ -39,10 +38,9 @@
             return document.getElementById('choiceNum').value;
           }
           var allBars = function(){
-            console.log('taking input:\nhowMany: ' + howMany());
             var bars = '';
             for (var i = 0; i < howMany(); i++){
-              bars += '<li><input class="postField form-control" id="choice[' + i +']" type="text"></input></li>';
+              bars += '<li><input class="postField form-control" name="choices[' + i +']" id="choices[' + i +']" required type="text"></input></li>';
             }
             console.log(bars);
             $('#moreBars').html(bars);
@@ -50,11 +48,10 @@
           }
           var moreBars = ejs.render('<%= moreBars %>');
           $('#updateChoices').on('click', function(){
-            console.log("num: " + howMany());
             event.preventDefault();
             $('#choices').html(allBars(howMany()));
           });
-            document.getElementById('moreBars').innerHTML = moreBars;
+          document.getElementById('moreBars').innerHTML = moreBars;
         </script>
     </body>
 </html>

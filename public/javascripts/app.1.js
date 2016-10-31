@@ -119,66 +119,20 @@ app.get('/ajax', function(req, res) {
     });
 });
 
-app.get('/users', function(req, res) {
-    users.voter.find(function(err, voters){
-        if (err) console.log(err);
-        res.send(voters);
-    });
-});
-
-app.get('/polls', function(req, res){
-    users.poll.find(function(err, poll){
-        if (err) console.log('err: ' + err);
-        res.send(poll);
-    });
-});
-
-app.get('/choices', function(req, res){
-    users.choices.find(function(err, choices){
-        if (err) console.log('err: ' + err);
-        res.send(choices);
-    });
-});
-
-
-
-
 app.get('/?', function(req, res) {
     //render index.ejs file
-    var viewPolls = "";
-//    var myCursor = users.poll.find();
-/*
-    users.poll.find(function(err, poll){
-       if (err) console.log(err);
-       viewPolls = poll;
-       console.log(viewPolls.length);
-    });
-    
-  */  var i = 0;
-    users.poll.find().cursor()
-  .on('data', function(doc){
-      i++;
-    viewPolls += "<div class='poll'><h3>" + doc.title + "</h3><br><p>Author: " + doc.author + "<br>Created: " + doc.pollSince + "<br>Options: " + doc.choices + "<br>Voters: " +  doc.voters + "</p></div>";
-  })
-  .on('error', function(err){
-    console.log(err);
-  })
-  .on('end', function(){
     res.render('index.ejs', {
         userVal: userVal,
-        mess: mess,
-        pollData: viewPolls
+        mess: mess
     });
-  });
-    
-    /*
-    res.render('index.ejs', {
-        userVal: userVal,
-        mess: mess,
-        pollData: JSON.stringify(viewPolls)
-    });*/
 });
 
+app.get('/newPost.ejs', function(req, res){
+    res.render('newPost.ejs', {
+        userVal: userVal,
+        moreBars: moreBars
+    });
+});
 
 app.post('/api/signup', function (req, res){
    var userName = req.body.user;
@@ -201,16 +155,16 @@ function validate (){
 function register (){
     mess = "Welcome to the Darkside, ";
     userVal = userName;
-    var newVoter = users.voter({
-        userName: userName,
-        userPass: userPass
-    });
-    newVoter.save(function(err){
-        if(err){
-            console.log(err);
-        }
-        console.log('User added: ' + userName);
-    });
+            var newVoter = users.voter({
+                userName: userName,
+                userPass: userPass
+            });
+            newVoter.save(function(err){
+                if(err){
+                    console.log(err);
+                }
+                console.log('User added: ' + userName);
+            });
     return userVal;
 }
 function verifyUser (userName, userPass, userVal){
@@ -240,56 +194,6 @@ function verifyUser (userName, userPass, userVal){
     $("#userVal").html(userVal);
 });
 
-
-
-app.get('/newPost', function(req, res){
-    res.render('newPost.ejs', {
-        userVal: userVal,
-        moreBars: moreBars
-    });
-});
-
-app.post('/newPost', function(req, res){
-  console.log(req.body);
-    var choicesGiven = req.body.choices;
-    var title = req.body.title;
-    
-        var addChoice = users.choices({
-            forPoll: title,
-            choices: choicesGiven,
-            votesCast: 0
-        });
-        addChoice.save(function(err){
-          if(err){
-            console.log(err);
-          }
-          console.log('Choices added: ' + choicesGiven);
-        });
-    var choice = function(err, doc){
-        if (err) console.log(err);
-        if (doc) return doc;
-    };
-    users.choices.findOne({choices: choicesGiven}, choice());
-    var newPoll = users.poll({
-      title: title,
-      author: userVal,
-      pollSince: new Date,
-      choices: choice
-    });
-    newPoll.save(function(err){
-        if(err){
-            console.log(err);
-        }
-        console.log('Poll added: ' + title);
-    });
-    users.poll.findOne({title: title}, function(err, doc){
-        if (err) console.log(err);
-        if (doc) console.log(doc.choices);
-        });
-    
-    return userVal;
-    
-});
 
 
 app.listen(port, function(){

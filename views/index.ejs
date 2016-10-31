@@ -20,9 +20,9 @@
     <div align="center" class="viewer">
           <h1>Darth Voter</h1>
           <div class="mtable"><p>This will be the main table</p>
-          <a href="/newPost.ejs"><button id="toMaker" type="submit">New Poll</button></a>
+          <a href="/newPost"><button id="toMaker" type="submit">New Poll</button></a>
             <div>
-              <p id="loginMess">Voting Data</p>
+              <p id="pollTable"><span id="pollData"><%-pollData%></p>
             </div>
           
           </div>
@@ -32,11 +32,15 @@
         <script src="/ejs.min.js"></script>
         <script src="/javascripts/signin.js"></script>
         <script src="/javascripts/signup.js"></script>
-        <script src="/javascripts/userClient.js"></script>
+        <script src="/javascripts/pollViewer.js"></script>
         <script>
           var html = ejs.render('<%= userVal %>');
-          $("#userval").html(html);
+          $("#userVal").html(html);
           document.getElementById('userVal').innerHTML = html;
+          var polls = ejs.render('<%- pollData %>');
+          $("#pollData").html(pollData);
+          document.getElementById('pollData').innerHTML = pollData;
+          
         </script>
     </body>
 </html>

@@ -19,8 +19,9 @@ voterSchema.methods.addPoll = function(err, pollFormData){
     if (err){ console.log(err)} else console.log(poll);
 };
 */
-var choices = mongoose.Schema({
-    choice: String,
+var choiceSchema = mongoose.Schema({
+    forPoll: String,
+    choices: Array,
     votesCast: Number
     });
     
@@ -33,7 +34,7 @@ var pollSchema = mongoose.Schema({
     title: String,
     author: String,
     pollSince: Date,
-    choices: [choices],
+    choices: choiceSchema,
     voters: [ballot]
 });
 
@@ -42,7 +43,8 @@ var voterSchema = mongoose.Schema({
     userPass: String,
     userSince: Date,
     authorOf: [pollSchema],
-    ballots: [ballot]
+    ballots: [ballot],
+    id: ObjectId
 });
 
 var voter = mongoose.model('voter', voterSchema);
@@ -77,7 +79,11 @@ pollSchema.pre('save', function(next){
   
 });
 
+var choices = mongoose.model('choices', choiceSchema);
+
+
 module.exports = {
     voter: voter,
-    poll: poll
+    poll: poll,
+    choices: choices
 };

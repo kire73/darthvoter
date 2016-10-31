@@ -57,6 +57,20 @@ ul {
     display: block;
     margin-top: 20%;
 }
+.poll {
+    display: block;
+    background-color: bisque;
+    max-width: 80%;
+    margin-top: 2%;
+    border-radius: .7em;
+    box-shadow: 10px 10px 5px rgba(0,0,0,0.4);
+}
+h3 {
+    padding-top: 5%;
+}
+p {
+    padding-bottom: 3%;
+}
 /*
 .usr {
     justify-content: center;
