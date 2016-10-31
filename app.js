@@ -146,19 +146,17 @@ app.get('/choices', function(req, res){
 app.get('/?', function(req, res) {
     //render index.ejs file
     var viewPolls = "";
-//    var myCursor = users.poll.find();
-/*
-    users.poll.find(function(err, poll){
-       if (err) console.log(err);
-       viewPolls = poll;
-       console.log(viewPolls.length);
-    });
-    
-  */  var i = 0;
+    var i = 0;
     users.poll.find().cursor()
-  .on('data', function(doc){
+    .on('data', function(doc){
       i++;
-    viewPolls += "<div class='poll'><h3>" + doc.title + "</h3><br><p>Author: " + doc.author + "<br>Created: " + doc.pollSince + "<br>Options: " + doc.choices + "<br>Voters: " +  doc.voters + "</p></div>";
+      var choose = "";
+      var options = users.choices.find(doc.choices).cursor()
+      .on('data', function(fil){
+          choose = JSON.stringify(fil.choices);
+          console.log(fil);
+      });
+    viewPolls += "<div class='poll'><h3>" + doc.title + "</h3><table><tr><th>Author:</th><td> " + doc.author + "</td></tr><tr><th>Created:</th><td> " + doc.pollSince + "</td></tr><tr><th>Options:</th><td> " + options + "</td></tr><tr><th>Voters:</th><td> " +  doc.voters + "</td></tr></table></div>";
   })
   .on('error', function(err){
     console.log(err);
@@ -170,13 +168,6 @@ app.get('/?', function(req, res) {
         pollData: viewPolls
     });
   });
-    
-    /*
-    res.render('index.ejs', {
-        userVal: userVal,
-        mess: mess,
-        pollData: JSON.stringify(viewPolls)
-    });*/
 });
 
 
@@ -243,7 +234,9 @@ function verifyUser (userName, userPass, userVal){
 
 
 app.get('/newPost', function(req, res){
-    res.render('newPost.ejs', {
+    if (userVal == "" || userVal == undefined){
+        console.log('Hold on to yer butts...')
+    } else res.render('newPost.ejs', {
         userVal: userVal,
         moreBars: moreBars
     });
