@@ -35,6 +35,7 @@ ul {
 
 .topsign {
     float: right;
+    margin-right: 1em;
 }
 
 .viewer {
@@ -98,16 +99,3 @@ h3 {
 p {
     padding-bottom: 3%;
 }
-/*
-.usr {
-    justify-content: center;
-}
-
-.pass {
-    justify-content: center;
-}
-
-.btn-signin {
-    justify-content: center;
-}
-*/

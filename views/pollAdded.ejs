@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+<html>
+    <body>
+      <div align="center">
+        <h1><span id="userVal"><%=userVal%></span>, Your Poll has been added!</h1>
+        <div>
+          <p id="pollTable"><span id="pollReview"><%-pollReview%></p>
+        </div>
+        <a  href="/?"><button id="home" class="btn">Home</button></a>
+        <a  href="/user"><button id="myProfile" class="btn" href="/user">My Profile</button></a>
+      </div>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="/ejs.min.js"></script>
+        <script src="/javascripts/signin.js"></script>
+        <script src="/javascripts/signup.js"></script>
+        <script>
+          
+          var html = ejs.render('<%= userVal %>');
+          $("#userVal").html(html);
+          document.getElementById('userVal').innerHTML = html;
+          var polls = ejs.render('<%- pollReview %>');
+          $("#pollReview").html(pollReview);
+          document.getElementById('pollReview').innerHTML = pollReview;
+          
+        </script>
+    </body>
+</html>

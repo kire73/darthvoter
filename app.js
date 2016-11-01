@@ -20,7 +20,7 @@ var express = require('express'),
     MongoStore = require('connect-mongo')(session),
     app = express();
 var router = express.Router();
-var mess, userVal = "";
+var mess, userVal, pollReview = "";
 var moreBars = 0;
 var ejs = require('ejs');
 var logIn = require('./public/javascripts/userClient.js');
@@ -274,6 +274,8 @@ app.post('/newPost', function(req, res){
             console.log(err);
         }
         console.log('Poll added: ' + title);
+        pollReview = newPoll;
+        res.redirect('/pollAdded');
     });
     users.poll.findOne({title: title}, function(err, doc){
         if (err) console.log(err);
@@ -281,6 +283,24 @@ app.post('/newPost', function(req, res){
         });
     
     return userVal;
+    
+});
+
+app.get('/pollAdded', function(req, res){
+    var pollMade = "<div class='poll'><h3>" + pollReview.title + "</h3><table><tr><th>Author:</th><td> " + pollReview.author + "</td></tr><tr><th>Created:</th><td> " + pollReview.pollSince + "</td></tr><tr><th>Options:</th><td> " + pollReview.choices + "</td></tr><tr><th>Voters:</th><td> " +  pollReview.voters + "</td></tr></table></div>";
+      console.log(pollReview);
+        if (userVal == "" || userVal == undefined){
+            console.log('Hold on to yer butts...');
+            res.send('Error 1337: User not logged in');
+        } else res.render('pollAdded.ejs', {
+            userVal: userVal,
+            pollReview: pollMade
+        });
+    
+          $("#home").on("click", function(req, res){
+              console.log('redirecting from server');
+            res.redirect('/');
+          });
     
 });
 
