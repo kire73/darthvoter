@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="/style.css">
 <html>
     <body>
@@ -20,9 +21,11 @@
     <div align="center" class="viewer">
           <h1>Darth Voter</h1>
           <div class="mtable">
-          <a href="/newPost"><button id="toMaker" type="submit">New Poll</button></a>
+              <a href="/login" class="btn"><span class="fa fa-user"></span> Local Login</a>
+              <a href="/signup" class="btn"><span class="fa fa-user"></span> Local Signup</a>
+              <a href="/newPost"><button id="toMaker"  class="btn" type="submit">New Poll</button></a>
             <div>
-              <p id="pollTable"><span id="pollData"><%-pollData%></p>
+              <p id="pollTable"><span id="pollData"><%-pollData%></span></p>
             </div>
           
           </div>

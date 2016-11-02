@@ -1,6 +1,7 @@
 // user schema
 
 var mongoose = require('mongoose');
+var bcrypt   = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
@@ -19,6 +20,37 @@ voterSchema.methods.addPoll = function(err, pollFormData){
     if (err){ console.log(err)} else console.log(poll);
 };
 */
+
+
+var userSchema = mongoose.Schema({
+    local: {
+        email: String,
+        password: String,
+    },
+    facebook: {
+        id: String,
+        token: String,
+        email: String,
+        name: String
+    },
+    twitter: {
+        id: String,
+        token: String,
+        displayName: String,
+        username: String
+    },
+    google: {
+        id: String,
+        token: String,
+        email: String,
+        name: String
+    }
+});
+
+
+
+
+
 var choiceSchema = mongoose.Schema({
     forPoll: String,
     choices: Array,
@@ -79,10 +111,26 @@ pollSchema.pre('save', function(next){
   
 });
 
+
+
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+// checking if password is valid
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.local.password);
+};
+
+// create the model for users and expose it to our app
+var User = mongoose.model('User', userSchema);
+
+
 var choices = mongoose.model('choices', choiceSchema);
 
 
 module.exports = {
+    User: User,
     voter: voter,
     poll: poll,
     choices: choices

@@ -4,6 +4,8 @@
   "description": "voting app",
   "main": "app.js",
   "dependencies": {
+   "bcryptjs": "^0.7.12",
+   "express-handlebars": "^1.1.0",
     "async": "^0.2.10",
     "body-parser": "^1.15.2",
     "connect-mongo": "^1.3.2",
@@ -20,7 +22,18 @@
     "mongoose": "^4.6.1",
     "morgan": "^1.7.0",
     "serve-favicon": "^2.3.0",
-    "socket.io": "^0.9.17"
+    "socket.io": "^0.9.17",
+   "method-override": "^2.2.0",
+   "orchestrate": "^0.3.11",
+   "passport": "^0.2.1",
+   "passport-facebook": "^1.0.3",
+   "passport-google": "^0.3.0",
+    "passport-google-oauth" : "~0.1.5",
+    "connect-flash" : "~0.1.1",  
+    "bcrypt-nodejs" : "latest",
+   "passport-local": "^1.0.0",
+   "passport-twitter": "^1.0.2",
+   "q": "^1.0.1"
   },
   "devDependencies": {},
   "scripts": {

@@ -8,27 +8,27 @@
   <link rel="stylesheet" href="/style.css">
 <html>
     <body>
-      <div align="center">
-        <h1><span id="userVal"><%=userVal%></span>, Your Poll has been added!</h1>
-        <div>
-          <p id="pollTable"><span id="pollReview"><%-pollReview%></p>
-        </div>
-        <a  href="/?"><button id="home" class="btn">Home</button></a>
-        <a  href="/userHome"><button id="myProfile" class="btn">My Profile</button></a>
+      <div id="userFile" align="center">
+        <h1><span id="userVal"><%=userVal%></span></h1>
+        <table>
+          <a  href="/?"><button id="home" class="btn">Home</button></a>
+          <tr><th>My Polls</th><td><%=pollList%></td></tr>
+          <tr><th>My ballots</th><td><%=pollList%></td></tr>
+        </table>
       </div>
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="/ejs.min.js"></script>
         <script src="/javascripts/signin.js"></script>
         <script src="/javascripts/signup.js"></script>
+        <script src="/javascripts/pollViewer.js"></script>
         <script>
-          
           var html = ejs.render('<%= userVal %>');
           $("#userVal").html(html);
           document.getElementById('userVal').innerHTML = html;
-          var polls = ejs.render('<%- pollReview %>');
-          $("#pollReview").html(pollReview);
-          document.getElementById('pollReview').innerHTML = pollReview;
+          var polls = ejs.render('<%= pollList %>');
+          $("#pollList").html(pollList);
+          document.getElementById('pollList').innerHTML = pollList;
           
         </script>
     </body>
